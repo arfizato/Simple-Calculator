@@ -198,6 +198,21 @@ def clrscr():
     onScreenText=""
     screenText.set("Tap an equation")
 
+def keypres(e):
+    try:
+        if (int(e.char) in (0,1,2,3,4,5,6,7,8,9) ):
+            numtapped(int(e.char),num0)
+    except:
+        pass
+    if (e.char in ("+","-","*","/")):
+        if e.char=="*":
+            operator(" x ")
+        else: 
+            operator(" "+e.char+" ")
+        
+    elif(e.char=="\r"):
+        equals()
+
 lastIsCalc=True
 onScreenText=""
 lastIsNum=True
@@ -218,6 +233,7 @@ if True: #declaring Root, Font and Label
     root.geometry("400x500+0+0")
     root.config(bg=backgroundColor)
     root.iconbitmap("images/calculator.ico")
+    root.bind("<KeyPress>",keypres)
     fontSize=20
     myFont=font.Font(family="emojione color", size=fontSize)
 
@@ -278,10 +294,10 @@ if True:#declaring all the buttons
     divButton.place(relx=.78,rely=.21, relwidth=.25, relheight=.2)
 
 if True:#declaring Menu
-    main = Menu(root, )
+    main = Menu(root, tearoff=False)
     root.config(menu=main, )
-    App  = Menu(main)
-    Theme= Menu(main)
+    App  = Menu(main, tearoff=False)
+    Theme= Menu(main, tearoff=False)
 
     App.add_command(label="Clear Screen", command= clrscr)
     App.add_command(label="Exit Application", command= lambda : root.destroy())
